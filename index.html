@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks - 할 일 관리</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <div class="app-layout">
+      <!-- 좌측 패널 (사이드바 / 대시보드 요약) -->
+      <aside class="sidebar-panel">
+        <!-- 헤더 영역 -->
+        <header class="app-header" id="appHeader">
+          <div class="header-icon" aria-hidden="true">📋</div>
+          <h1 class="app-title">My Tasks</h1>
+          <p class="app-subtitle">오늘 하루 해야 할 일을 체계적으로 정리하고 달성해보세요.</p>
+        </header>
+
+        <!-- 진행률 카드 -->
+        <section class="card progress-section" id="progressSection" aria-label="진행률 정보">
+          <div class="card-header">
+            <span class="card-title">진행 현황</span>
+            <span class="progress-stats">
+              <strong id="completedCount">0</strong> / <span id="totalCount">0</span>건 완료
+            </span>
+          </div>
+          <div class="progress-percent-display">
+            <span id="progressPercent" class="percent-value">0%</span>
+            <span class="percent-label">달성률</span>
+          </div>
+          <div class="progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="할 일 진행도">
+            <div id="progressBarFill" class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </section>
+
+        <!-- 카테고리 필터 카드 -->
+        <section class="card filter-section" id="filterSection" aria-label="할 일 분류 필터">
+          <div class="card-header">
+            <span class="card-title">카테고리</span>
+          </div>
+          <div id="filterGroup" class="filter-group" role="tablist">
+            <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+              <span class="filter-name">전체</span>
+              <span class="filter-count" id="countAll">0</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="work" role="tab" aria-selected="false">
+              <span class="filter-name"><span class="category-dot dot-work"></span>업무</span>
+              <span class="filter-count" id="countWork">0</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="personal" role="tab" aria-selected="false">
+              <span class="filter-name"><span class="category-dot dot-personal"></span>개인</span>
+              <span class="filter-count" id="countPersonal">0</span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="study" role="tab" aria-selected="false">
+              <span class="filter-name"><span class="category-dot dot-study"></span>공부</span>
+              <span class="filter-count" id="countStudy">0</span>
+            </button>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 우측 패널 (메인 작업 영역) -->
+      <main class="main-panel">
+        <!-- 할 일 입력 카드 -->
+        <section class="card input-section" id="inputSection" aria-label="새로운 할 일 등록">
+          <form id="todoForm" class="todo-form" onsubmit="return false;">
+            <div class="input-row">
+              <input
+                type="text"
+                id="todoInput"
+                class="todo-input"
+                placeholder="새로운 할 일을 입력하세요... (Enter 또는 추가 버튼)"
+                autocomplete="off"
+                aria-label="할 일 제목"
+              />
+              <div class="input-controls">
+                <select id="categorySelect" class="category-select" aria-label="카테고리 선택">
+                  <option value="work">업무</option>
+                  <option value="personal">개인</option>
+                  <option value="study">공부</option>
+                </select>
+                <button type="submit" id="addBtn" class="btn btn-primary">추가</button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- 목록 영역 -->
+        <section class="list-section" id="listSection" aria-label="할 일 목록">
+          <div class="list-header">
+            <h2 class="list-title" id="currentFilterTitle">전체 목록</h2>
+          </div>
+          <ul id="todoList" class="todo-list">
+            <!-- 자바스크립트로 동적 렌더링 -->
+          </ul>
+
+          <!-- 빈 상태 UI -->
+          <div id="emptyState" class="empty-state card" style="display: none;">
+            <div class="empty-icon" aria-hidden="true">📝</div>
+            <p class="empty-message">등록된 할 일이 없습니다.</p>
+            <p class="empty-submessage">새로운 할 일을 추가하여 하루를 계획해보세요.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- 스크립트 연결 -->
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/tasks.js"></script>
+  <script defer src="js/ui.js"></script>
+  <script defer src="js/app.js"></script>
+</body>
+</html>
